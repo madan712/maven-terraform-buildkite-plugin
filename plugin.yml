@@ -1,0 +1,8 @@
+name: Maven terraform plugin
+description: Maven package builder and loading using terraform
+author: https://github.com/madan712
+requirements:
+    - mvn
+    - terraform
+configuration:
+  additionalProperties: false
