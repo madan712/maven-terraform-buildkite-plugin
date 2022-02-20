@@ -13,7 +13,7 @@ steps:
         - madan712/maven-terraform:
 ```
 
-sample `main.tf`:
+below is the sample .tf file to create AWS lambda function `main.tf`:
 
 ```yml
 variable "build" {}
