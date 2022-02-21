@@ -10,7 +10,7 @@ sample `pipeline.yml`:
 steps:
   - label: ":package: Deploy"
     plugins:
-        - madan712/maven-terraform#v1.0:
+        - madan712/maven-terraform#v1.1:
 ```
 
 below is the sample .tf file to create AWS lambda function `main.tf`:
