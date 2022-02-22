@@ -2,8 +2,9 @@
 
 set -euo pipefail
 
-echo "Releasing build.."
-git status
+echo "Creating package.."
+git branch master
+git checkout master
 mvn -B release:prepare && mvn -B release:perform
 
 build=$(mvn -q -Dexec.executable=echo -Dexec.args='target/${project.artifactId}-${project.version}.${project.packaging}' --non-recursive exec:exec)
@@ -11,3 +12,4 @@ echo "Generated build: ${build}"
 
 echo "Calling terraform.."
 terraform init && terraform apply -auto-approve -var "build=${build}"
+
