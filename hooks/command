@@ -2,11 +2,8 @@
 
 set -euo pipefail
 
-echo "Creating build.."
-mvn clean package
-
 echo "Releasing build.."
-git checkout master
+git pull
 mvn -B release:prepare && mvn -B release:perform
 
 build=$(mvn -q -Dexec.executable=echo -Dexec.args='target/${project.artifactId}-${project.version}.${project.packaging}' --non-recursive exec:exec)
