@@ -3,6 +3,9 @@
 set -euo pipefail
 
 echo "Creating build"
+mvn clean package
+
+echo "Releasing build"
 git checkout master
 mvn -B release:prepare && mvn -B release:perform
 
