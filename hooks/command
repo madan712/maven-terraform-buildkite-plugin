@@ -2,12 +2,8 @@
 
 set -euo pipefail
 
-echo "Creating build.."
-mvn -B release:clean && mvn -B release:prepare && mvn -B release:perform
+echo "Message"
+echo ${BUILDKITE_PLUGIN_MAVEN_TERRAFORM_MESSAGE}
 
-build=$(mvn -q -Dexec.executable=echo -Dexec.args='target/${project.artifactId}-${project.version}.${project.packaging}' --non-recursive exec:exec)
-echo "Generated build: ${build}"
 
-echo "Calling terraform.."
-terraform init && terraform apply -auto-approve -var "build=${build}"
 
