@@ -5,9 +5,4 @@ requirements:
     - mvn
     - terraform
 configuration:
-    properties:
-        message:
-            type: string
     additionalProperties: false
-    required:
-        - message
