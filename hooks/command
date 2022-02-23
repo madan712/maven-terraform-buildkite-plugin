@@ -15,11 +15,13 @@ version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-r
 
 echo "${version}"
 
-versionWithoutSnapshot="basename ${version} -SNAPSHOT"
+versionWithoutSnapshot=${version//"-SNAPSHOT"/}
 
 echo "${versionWithoutSnapshot}"
 
-build=$(mvn -q -Dexec.executable=echo -Dexec.args='target/${project.artifactId}-${versionWithoutSnapshot}.${project.packaging}' --non-recursive exec:exec)
+build=$(mvn -q -Dexec.executable=echo -Dexec.args='target/${project.artifactId}-VERSION.${project.packaging}' --non-recursive exec:exec)
+
+build=${build//VERSION/$versionWithoutSnapshot}
 echo "Build to generate: ${build}"
 
 echo "Creating build.."
@@ -27,6 +29,13 @@ mvn -B release:clean && mvn -B release:prepare && mvn -B release:perform
 
 echo "-----3"
 git status
+
+echo "-----4"
+git pull
+
+echo "-----5"
+git status
+
 
 echo "Calling terraform.."
 terraform init && terraform apply -auto-approve -var "build=${build}"
