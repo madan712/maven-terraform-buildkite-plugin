@@ -11,7 +11,15 @@ git pull
 echo "-----2"
 git status
 
-build=$(mvn -q -Dexec.executable=echo -Dexec.args='target/${project.artifactId}-${project.version}.${project.packaging}' --non-recursive exec:exec)
+version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+
+echo "${version}"
+
+versionWithoutSnapshot="basename ${version} -SNAPSHOT"
+
+echo "${versionWithoutSnapshot}"
+
+build=$(mvn -q -Dexec.executable=echo -Dexec.args='target/${project.artifactId}-${versionWithoutSnapshot}.${project.packaging}' --non-recursive exec:exec)
 echo "Build to generate: ${build}"
 
 echo "Creating build.."
